@@ -4,7 +4,7 @@ if(isset($_POST['submit'])){
         if(preg_match("/^[  a-zA-Z]+/", $_POST['name'])){
             $name=$_POST['name'];
             //connect  to the database
-            $db=mysql_connect  ("localhost", "root",) or die ('I cannot connect to the database  because: ' . mysql_error());
+            $db=mysql_connect  ("localhost", "root",  "") or die ('I cannot connect to the database  because: ' . mysql_error());
             //-select  the database to use
             $mydb=mysql_select_db("bookstore");
             //-query  the database table

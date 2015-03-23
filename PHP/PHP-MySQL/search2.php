@@ -3,6 +3,7 @@
 if (isset($_POST['submit'])) {
     $DBServer = 'localhost';
     $DBUser = 'root';
+    $DBPass = '';
     $DBName = 'bookstore';
     $conn = mysqli_connect($DBServer, $DBUser, $DBPass, $DBName);
 
