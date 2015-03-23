@@ -1,7 +1,6 @@
 /** This is the file where you will write the JavaScript code for validation the different parts of the form **/
 
-function formValidation()
-{
+function formValidation() {
     var uid = document.registration.userid;
     var passid = document.registration.passid;
     var uname = document.registration.username;
@@ -12,22 +11,14 @@ function formValidation()
     var mgender = document.registration.msex;
     var fgender = document.registration.fsex;
 
-    if(validateUsername(uid,5,12))
-    {
-        if(validatePassword(passid,7,12))
-        {
-            if(allLetter(uname))
-            {
-                if(alphanumeric(uadd))
-                {
-                    if(countryselect(ucountry))
-                    {
-                        if(allnumeric(uzip))
-                        {
-                            if(checkEmail(uemail))
-                            {
-                                if(validgender(mgender,fgender))
-                                {
+    if (validateUsername(uid, 5, 12)) {
+        if (validatePassword(passid, 7, 12)) {
+            if (allLetter(uname)) {
+                if (alphanumeric(uadd)) {
+                    if (countryselect(ucountry)) {
+                        if (allnumeric(uzip)) {
+                            if (checkEmail(uemail)) {
+                                if (validgender(mgender, fgender)) {
                                 }
                             }
                         }
@@ -41,7 +32,7 @@ function formValidation()
 
 
 function validateUsername(fld) {
-   //function for validating usernames
+    //function for validating usernames
 
     var error = "";
     var illegalChars = /\W/; // allow letters, numbers, and underscores
@@ -74,95 +65,73 @@ function validatePassword(fld) {
     //function for validating passwords
 
     var error = "";
-    var illegalChars = /[\W_]/; // allow only letters and numbers
+    //Regex: at least 2 uppercase letters, 3 lowercase letters, one special character and between 7 and 12 characters
+    var illegalChars = /^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{7,12}$/;
 
-    if (fld.value == "") {
-        fld.style.background = 'Yellow';
-        error = "You didn't enter a password.\n";
-        alert(error);
-        return false;
 
-    } else if ((fld.value.length < 7) || (fld.value.length > 12)) {
-        error = "The password is the wrong length. \n";
-        fld.style.background = 'Yellow';
-        alert(error);
-        return false;
+    if (fld.value.match(illegalChars)) {
 
-    } else if (illegalChars.test(fld.value)) {
+        return true;
+    }
+
+    else {
         error = "The password contains illegal characters.\n";
         fld.style.background = 'Yellow';
         alert(error);
         return false;
-
-    } else if ( (fld.value.search(/[a-zA-Z]+/)==-1) || (fld.value.search(/[0-9]+/)==-1) ) {
-        error = "The password must contain at least one numeral.\n";
-        fld.style.background = 'Yellow';
-        alert(error);
-        return false;
-
-    } else {
-        fld.style.background = 'White';
     }
-    return true;
+
 }
 
-function allLetter(uname){
+function allLetter(uname) {
     //function for validating names
 
     var letters = /^[A-Za-z]+$/;
-    if(uname.value.match(letters))
-    {
+    if (uname.value.match(letters)) {
         return true;
     }
-    else
-    {
+    else {
         alert('Username must have alphabet characters only');
         uname.focus();
         return false;
     }
 }
 
-function alphanumeric(uadd){
-   //function for validating address
+function alphanumeric(uadd) {
+    //function for validating address
 
     var letters = /^[0-9a-zA-Z]+$/;
-    if(uadd.value.match(letters))
-    {
+    if (uadd.value.match(letters)) {
         return true;
     }
-    else
-    {
+    else {
         alert('User address must have alphanumeric characters only');
         uadd.focus();
         return false;
     }
 }
 
-function countryselect(ucountry){
+function countryselect(ucountry) {
     //function for validating country
 
-    if(ucountry.value == "Default")
-    {
+    if (ucountry.value == "Default") {
         alert('Select your country from the list');
         ucountry.focus();
         return false;
     }
-    else
-    {
+    else {
         return true;
     }
 }
 
-function allnumeric(uzip){
+function allnumeric(uzip) {
     //function validating ZIP code
 
     var numbers = /^[0-9]+$/;
-    if(uzip.value.match(numbers))
-    {
+    if (uzip.value.match(numbers)) {
         return true;
     }
-    else
-    {
+    else {
         alert('ZIP code must have numeric characters only');
         uzip.focus();
         return false;
@@ -173,40 +142,36 @@ function checkEmail(uemail) {
     //function validating email
 
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if(uemail.value.match(mailformat))
-    {
+    if (uemail.value.match(mailformat)) {
         return true;
     }
-    else
-    {
+    else {
         alert("You have entered an invalid email address!");
         uemail.focus();
         return false;
     }
 }
 
-function validgender(mgender,fgender){
+function validgender(mgender, fgender) {
     //function validating gender
-    x=0;
+    x = 0;
 
-    if(mgender.checked)
-    {
-        x++;
-    } if(fgender.checked)
-    {
+    if (mgender.checked) {
         x++;
     }
-    if(x==0)
-    {
+    if (fgender.checked) {
+        x++;
+    }
+    if (x == 0) {
         alert('Select Male/Female');
         mgender.focus();
         return false;
     }
-    else
-    {
+    else {
         alert('Form Successfully Submitted');
         window.location.reload()
-        return true;}
+        return true;
+    }
 }
 
 
